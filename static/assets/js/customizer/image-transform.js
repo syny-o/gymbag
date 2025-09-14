@@ -1,30 +1,26 @@
 'use strict';
 
 /**
- * image-transform.js (scale-aware, performant)
+ * image-transform.js (scale-aware, unified CSS handles)
  *
- * - Výběr/rámeček až po kliku, klik mimo = zrušení. Esc také zruší.
+ * - Výběr/rámeček až po kliku, klik mimo = zrušení. Esc zruší.
  * - Drag/resize/rotate obrázku, snap/clamp vůči #designArea (existuje-li), jinak #product.
  * - RÁM: jeden persistentní element, jen aktualizujeme jeho box (RAF throttling).
- * - SCALE-AWARE: přepočty přes měřítko rodičů (transform:scale apod.), takže rám nesjíždí.
- * - Mobil: během interakce vypínáme scroll (touch-action/overscroll-behavior + pointer capture).
+ * - SCALE-AWARE: umí rodiče s transform: scale (Django layouty).
+ * - ÚCHYTY: žádný inline vzhled → spoléháme na CSS (.frame .handle, .handle.resize, .handle.rotate).
  */
 
 (function initImageTransform() {
   const SELECTORS = { product:'#product', bounds:'#designArea', image:'#designImage' };
-  const SNAP_THRESHOLD = 10; // px
-  const MIN_SCALE = 0.1;
-  const MAX_SCALE = 2.0;
+  const SNAP_THRESHOLD = 10;
+  const MIN_SCALE = 0.1, MAX_SCALE = 2.0;
 
-  // --- scroll guard pro mobil ---------------------------------------
+  // ---- mobilní scroll guard ----
   let __scrollGuardPrev = null;
   function disablePageScroll(){
     if (__scrollGuardPrev) return;
     const html = document.documentElement;
-    __scrollGuardPrev = {
-      touchAction: html.style.touchAction,
-      overscrollBehavior: html.style.overscrollBehavior
-    };
+    __scrollGuardPrev = { touchAction: html.style.touchAction, overscrollBehavior: html.style.overscrollBehavior };
     html.style.touchAction = 'none';
     html.style.overscrollBehavior = 'none';
   }
@@ -36,33 +32,34 @@
     __scrollGuardPrev = null;
   }
 
-  // --- refs ----------------------------------------------------------
+  // ---- refs ----
   const productElement = document.querySelector(SELECTORS.product);
   if (!productElement) return;
   const boundsElement = /** @type {HTMLElement} */ (
     document.querySelector(SELECTORS.bounds) || productElement
   );
 
-  // --- helpers: scale & rects (viewport → CSS px kontejneru) ---------
+  // ---- scale helpers ----
+  const getRectViewport = (el)=> el.getBoundingClientRect();
   function getScale(el){
     const r = el.getBoundingClientRect();
     const sx = r.width  / (el.clientWidth  || r.width  || 1);
     const sy = r.height / (el.clientHeight || r.height || 1);
-    return { sx: (sx || 1), sy: (sy || 1) };
+    return { sx: sx || 1, sy: sy || 1 };
   }
-  function getRectViewport(el){ return el.getBoundingClientRect(); }
-  function v2cX(xViewport, container){ const s = getScale(container); return xViewport / s.sx; }
-  function v2cY(yViewport, container){ const s = getScale(container); return yViewport / s.sy; }
+  const v2cX = (xViewport, container)=> xViewport / getScale(container).sx;
+  const v2cY = (yViewport, container)=> yViewport / getScale(container).sy;
 
-  // --- state ---------------------------------------------------------
-  let frameEl = null; let hResize = null; let hRotate = null;
+  // ---- state ----
+  let frameEl = null, hResize = null, hRotate = null;
   let selectedImg = null;
+  let rafScheduled = false;
 
-  // --- bus: single selection ----------------------------------------
+  // ---- single-selection bus ----
   function broadcastSelection(kind){ window.dispatchEvent(new CustomEvent('design:select', { detail:{ kind } })); }
   window.addEventListener('design:select', e => { if (e?.detail?.kind !== 'image') deselect(); });
 
-  // --- data attrs & transform ---------------------------------------
+  // ---- data & transform ----
   function ensureDataAttrs(img){
     if (!img.dataset.x)     img.dataset.x = '0';
     if (!img.dataset.y)     img.dataset.y = '0';
@@ -75,10 +72,10 @@
     const s = +img.dataset.scale || 1;
     const r = +img.dataset.rot || 0;
     img.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
-    img.style.zIndex = '1'; // pod textem
+    img.style.zIndex = '3'; // nad designArea, pod textem
   }
 
-  // --- SNAP vodítka (v boundsElement CSS px) -------------------------
+  // ---- guides (v CSS px boundsElementu) ----
   let guideV = null, guideH = null;
   function ensureGuides(){
     if (!boundsElement.style.position) boundsElement.style.position = 'relative';
@@ -87,35 +84,31 @@
     guideH = document.createElement('div');
     for (const g of [guideV, guideH]){
       Object.assign(g.style, {
-        position:'absolute', zIndex:'1000', pointerEvents:'none',
-        display:'none', background:'rgba(110,168,254,0.9)',
-        boxShadow:'0 0 0 1px rgba(255,255,255,0.2)', transition:'none'
+        position:'absolute', zIndex:'1000', pointerEvents:'none', display:'none',
+        background:'rgba(110,168,254,0.9)', boxShadow:'0 0 0 1px rgba(255,255,255,0.2)', transition:'none'
       });
     }
-    guideV.style.top = '0'; guideV.style.bottom = '0'; guideV.style.width = '2px';
-    guideH.style.left = '0'; guideH.style.right = '0'; guideH.style.height = '2px';
+    guideV.style.top = '0';  guideV.style.bottom = '0'; guideV.style.width = '2px';
+    guideH.style.left = '0'; guideH.style.right  = '0'; guideH.style.height = '2px';
     boundsElement.appendChild(guideV); boundsElement.appendChild(guideH);
   }
   const showV = x => { ensureGuides(); guideV.style.left = x + 'px'; guideV.style.display = 'block'; };
   const showH = y => { ensureGuides(); guideH.style.top  = y + 'px'; guideH.style.display = 'block'; };
-  const hideGuides = () => { if (guideV) guideV.style.display='none'; if (guideH) guideH.style.display='none'; };
+  const hideGuides = ()=> { if (guideV) guideV.style.display='none'; if (guideH) guideH.style.display='none'; };
 
-  // snap/clamp v **CSS px boundsElementu**
+  // snap/clamp v CSS px boundsElementu
   function snapImagePosition(img){
     const br = getRectViewport(boundsElement);
     const contW = boundsElement.clientWidth;
     const contH = boundsElement.clientHeight;
     const rect = img.getBoundingClientRect();
 
-    // převedeme viewport → CSS px bounds
     const left   = v2cX(rect.left  - br.left, boundsElement);
     const top    = v2cY(rect.top   - br.top , boundsElement);
     const width  = v2cX(rect.width,  boundsElement);
     const height = v2cY(rect.height, boundsElement);
-    const right  = left + width;
-    const bottom = top  + height;
-    const midX   = left + width/2;
-    const midY   = top  + height/2;
+    const right  = left + width, bottom = top + height;
+    const midX   = left + width/2, midY = top + height/2;
 
     const candX = [
       { pos:left,  target:0,         guide:0,         set:()=>0 },
@@ -135,16 +128,11 @@
     if (bestX){ goalLeft = bestX.set(); showV(bestX.guide); } else if (guideV) guideV.style.display='none';
     if (bestY){ goalTop  = bestY.set(); showH(bestY.guide); } else if (guideH) guideH.style.display='none';
 
-    // clamp
     goalLeft = Math.max(0, Math.min(goalLeft, Math.max(0, contW - width)));
     goalTop  = Math.max(0, Math.min(goalTop , Math.max(0, contH - height)));
 
-    // převeď rozdíl zpět na dataset (už není potřeba scale — dataset je v obrazovkových px a applyTransform to vykreslí správně)
-    const curX = +img.dataset.x || 0;
-    const curY = +img.dataset.y || 0;
-    const dx = goalLeft - left;
-    const dy = goalTop  - top;
-
+    const curX = +img.dataset.x || 0, curY = +img.dataset.y || 0;
+    const dx = goalLeft - left, dy = goalTop - top;
     if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01){
       img.dataset.x = String(curX + dx);
       img.dataset.y = String(curY + dy);
@@ -154,44 +142,30 @@
     return false;
   }
 
-  // --- FRAME (persistentní; pozicujeme v CSS px #product) ------------
+  // ---- persistent frame ----
   function ensureFrame(){
     if (frameEl) return frameEl;
     const frame = document.createElement('div');
-    frame.className = 'frame'; frame.dataset.owner = 'image';
-    Object.assign(frame.style, { position:'absolute', pointerEvents:'auto', cursor:'move', touchAction:'none', zIndex:'500', transition:'none' });
+    frame.className = 'frame';
+    frame.dataset.owner = 'image';
 
-    const r = document.createElement('div'); // resize
-    r.className='handle resize'; r.title='Změnit velikost (táhni)'; r.setAttribute('aria-label','Změnit velikost');
-    Object.assign(r.style,{ position:'absolute', width:'18px', height:'18px', right:'-10px', bottom:'-10px',
-      borderRadius:'4px', border:'2px solid #6ea8fe', background:'rgba(14,20,45,0.6)', boxShadow:'0 2px 10px rgba(0,0,0,.35)',
-      cursor:'nwse-resize', touchAction:'none', transition:'none' });
+    // jen vytvoříme úchyty — vzhled i pozice řeší CSS
+    const r = document.createElement('div'); r.className = 'handle resize';
+    const rot = document.createElement('div'); rot.className = 'handle rotate';
 
-    const rot = document.createElement('div'); // rotate
-    rot.className='handle rotate'; rot.title='Otočit (táhni)'; rot.setAttribute('aria-label','Otočit');
-    Object.assign(rot.style,{ position:'absolute', width:'22px', height:'22px', left:'50%', transform:'translateX(-50%) rotate(45deg)',
-      top:'-34px', borderRadius:'6px', border:'2px solid #6ea8fe', background:'rgba(14,20,45,0.6)', boxShadow:'0 2px 10px rgba(0,0,0,.35)',
-      cursor:'grab', touchAction:'none', transition:'none' });
-    const icon=document.createElement('span'); icon.textContent='↻';
-    Object.assign(icon.style,{ position:'absolute', left:'50%', top:'50%', transform:'translate(-50%,-50%) rotate(-45deg)',
-      fontSize:'12px', lineHeight:'1', color:'#6ea8fe', userSelect:'none', pointerEvents:'none',
-      fontFamily:'system-ui,-apple-system,Segoe UI,Roboto,Arial', fontWeight:'700' });
-    rot.appendChild(icon);
-
-    frame.appendChild(r); frame.appendChild(rot);
+    frame.appendChild(r);
+    frame.appendChild(rot);
     productElement.appendChild(frame);
-    frameEl = frame; hResize = r; hRotate = rot;
 
+    frameEl = frame; hResize = r; hRotate = rot;
     bindFramePointerInteractions();
     return frame;
   }
 
-  // nastav box rámu podle IMG (viewport → CSS px #product)
   function setFrameBoxFromImage(img){
     if (!img || !frameEl) return;
     const ir = img.getBoundingClientRect();
     const pr = getRectViewport(productElement);
-    // převod do CSS px #product:
     const left = v2cX(ir.left - pr.left, productElement);
     const top  = v2cY(ir.top  - pr.top , productElement);
     const w    = v2cX(ir.width,  productElement);
@@ -202,8 +176,6 @@
     frameEl.style.height = (h + 16) + 'px';
   }
 
-  // RAF throttling
-  let rafScheduled = false;
   function scheduleFrameSync(){
     if (rafScheduled) return;
     rafScheduled = true;
@@ -216,9 +188,8 @@
 
   const showFrameFor = img => { ensureFrame(); setFrameBoxFromImage(img); frameEl.style.display='block'; };
   const hideFrame    = () => { if (frameEl) frameEl.style.display='none'; };
-  const removeFrame  = () => { if (frameEl){ frameEl.remove(); frameEl=null; hResize=hRotate=null; } };
 
-  // --- selection -----------------------------------------------------
+  // ---- selection ----
   function selectImage(img){
     if (!img) return;
     selectedImg = img;
@@ -231,28 +202,38 @@
   }
   function deselect(){ selectedImg=null; hideGuides(); hideFrame(); }
 
-  document.addEventListener('pointerdown', e => {
+  // Klikání: priorita – pokud klik spadl mezi overlaye, zkusíme hit-test obrázku.
+  document.addEventListener('pointerdown', (e) => {
     const t = /** @type {HTMLElement} */(e.target);
     const inside = productElement.contains(t);
-    const clickedImg = t && t.id === 'designImage';
     const clickedFrame = t && frameEl && frameEl.contains(t);
+
     if (!inside){ deselect(); return; }
-    if (clickedImg){ selectImage(t); e.stopPropagation(); return; }
-    if (!clickedFrame){ deselect(); }
+    if (clickedFrame){ return; }
+
+    const img = /** @type {HTMLImageElement|null} */ (document.querySelector(SELECTORS.image));
+    if (img){
+      const r = img.getBoundingClientRect();
+      const hit = (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom);
+      if (hit){ selectImage(img); e.stopPropagation(); return; }
+    }
+    deselect();
   });
+
   window.addEventListener('keydown', e => { if (e.key === 'Escape') deselect(); });
 
-  const childObserver = new MutationObserver(() => {
+  // Obrázek přidán/odebrán
+  const mo = new MutationObserver(() => {
     const img = document.querySelector(SELECTORS.image);
     if (img){ ensureDataAttrs(img); applyTransform(img); scheduleFrameSync(); }
-    else { deselect(); removeFrame(); }
+    else { deselect(); if (frameEl) frameEl.style.display='none'; }
   });
-  childObserver.observe(productElement, { childList:true, subtree:false });
+  mo.observe(productElement, { childList:true, subtree:false });
 
   const existing = document.querySelector(SELECTORS.image);
   if (existing){ ensureDataAttrs(existing); applyTransform(existing); }
 
-  // --- drag přímo z OBRÁZKU ------------------------------------------
+  // ---- drag přímo z obrázku ----
   function ensureImageDragHandler(img){
     if (img.__dragBound) return;
     img.__dragBound = true;
@@ -270,10 +251,8 @@
 
       function onMove(ev){
         ev.preventDefault();
-        const dx = ev.clientX - start.x;
-        const dy = ev.clientY - start.y;
-        img.dataset.x = String(init.x + dx);
-        img.dataset.y = String(init.y + dy);
+        img.dataset.x = String(init.x + (ev.clientX - start.x));
+        img.dataset.y = String(init.y + (ev.clientY - start.y));
         applyTransform(img);
         snapImagePosition(img);
         scheduleFrameSync();
@@ -292,7 +271,7 @@
     }, { passive:false });
   }
 
-  // --- interakce s rámem ---------------------------------------------
+  // ---- interakce s rámem ----
   function bindFramePointerInteractions(){
     if (!frameEl) return;
     let mode = null; // 'move' | 'resize' | 'rotate'
@@ -339,8 +318,7 @@
       } else if (mode === 'resize'){
         const delta = Math.max(Math.abs(dx), Math.abs(dy));
         const sign  = (dx + dy) >= 0 ? 1 : -1;
-        const next  = Math.min(MAX_SCALE, Math.max(MIN_SCALE, init.scale + (delta / 200) * sign));
-        selectedImg.dataset.scale = String(next);
+        selectedImg.dataset.scale = String(Math.min(MAX_SCALE, Math.max(MIN_SCALE, init.scale + (delta / 200) * sign)));
         applyTransform(selectedImg);
         hideGuides();
       } else if (mode === 'rotate'){
@@ -351,17 +329,13 @@
         applyTransform(selectedImg);
         hideGuides();
       }
-
       scheduleFrameSync();
     }
 
     function onPointerUp(e){
       window.removeEventListener('pointermove', onPointerMove);
       mode = null;
-      if (activePointerId != null){
-        frameEl.releasePointerCapture?.(activePointerId);
-        activePointerId = null;
-      }
+      if (activePointerId != null){ frameEl.releasePointerCapture?.(activePointerId); activePointerId = null; }
       document.body.style.userSelect = '';
       restorePageScroll();
       hideGuides();
@@ -371,7 +345,7 @@
     frameEl.addEventListener('pointerdown', onPointerDown);
   }
 
-  // sync při změně layoutu / SCROLLU (důležité v Django šablonách)
+  // sync i při scrollu (layouty se scale/scroll)
   window.addEventListener('resize', scheduleFrameSync);
   window.addEventListener('scroll', scheduleFrameSync, { passive:true, capture:true });
 })();
