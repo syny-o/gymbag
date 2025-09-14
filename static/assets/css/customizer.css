@@ -55,6 +55,14 @@
   background: #dee;
 }
 
+.swatch[data-strap="black"] {
+  background: #141414;
+}
+.swatch[data-strap="white"] {
+  background: #ffe;
+  border: solid 2px rgba(0, 0, 0, 0.25);
+}
+
 /* Stage */
 .stage-wrap {
   position: relative;
