@@ -34,8 +34,8 @@
       </div>
       <!-- LEVY SLOUPEC -->
       <div class="col-md-3 col-12">
-        <!-- NOVÉ: výběr barvy tašky -->
-        <div class="mb-5">
+        <!-- výběr barvy tašky -->
+        <div class=" row mb-3">
           <label class="form-label">Barva tašky</label>
           <div
             id="colorSwatches"
@@ -43,7 +43,6 @@
             role="listbox"
             aria-label="Výběr barvy tašky"
           >
-            <!-- zachovávám .swatch kvůli JS, přidávám Bootstrap vzhled -->
             <button
               class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
               data-color="black"
@@ -80,6 +79,29 @@
               aria-label="Šedá"
               title="Šedá"
             ></button>
+          </div>
+        </div>         
+        <div class=" row mb-5">
+          <label class="form-label">Barva popruhu</label>
+          <div
+            id="colorSwatches"
+            class="swatches d-flex flex-wrap gap-2"
+            role="listbox"
+            aria-label="Výběr barvy tašky"
+          >
+            <button
+              class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
+              data-color="black"
+              aria-label="Černá"
+              title="Černá"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="white"
+              aria-label="Bílá"
+              title="Bílá"
+            ></button>
+
           </div>
         </div>
 
