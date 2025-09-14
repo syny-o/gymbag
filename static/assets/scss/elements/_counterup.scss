@@ -1,0 +1,83 @@
+/*
+   10. Counterup css
+*/
+
+.single__counterup{
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border: 2px solid transparent;
+    padding: 1.6rem 0.6rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    &:hover{
+        border-color: var(--secondary-color);
+    }
+    @media only screen and (min-width: 400px) {
+        padding: 2rem 1rem;
+    }
+    @media only screen and (min-width: 480px) {
+        padding: 2.5rem 1.2rem;
+    }
+    @media only screen and (min-width: 992px) {
+        padding: 3rem 2rem;
+    }
+    @media only screen and (min-width: 1200px) {
+        padding: 4rem 2rem;
+    }
+}
+.counterup__icon {
+    margin-bottom: 0.2rem;
+    @media only screen and (min-width: 400px) {
+        margin-bottom: 0.5rem;
+    }
+    @media only screen and (min-width: 768px) {
+        margin-bottom: 1rem;
+    }
+    & svg{
+        @media only screen and (max-width: 991px) {
+            width: 50px;
+        }
+        @media only screen and (max-width: 479px) {
+            width: 42px;
+        }
+    }
+}
+.counterup__title{
+    margin-bottom: 1.2rem;
+    @media only screen and (min-width: 768px) {
+        margin-bottom: 1.5rem;
+    }
+    @media only screen and (min-width: 1200px) {
+        margin-bottom: 2.2rem;
+    }
+    @media only screen and (max-width: 479px) {
+        font-size: 1.5rem;
+        line-height: 2.2rem;
+        margin-bottom: 1rem;
+    }
+}
+.counterup__number{
+    font-size: 2.4rem;
+    line-height: 3rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    @media only screen and (min-width: 480px) {
+        font-size: 2.8rem;
+    }
+    @media only screen and (min-width: 768px) {
+        font-size: 3.2rem;
+        line-height: 3.2rem;
+    }
+    @media only screen and (min-width: 992px) {
+        font-size: 3.5rem;
+        line-height: 3.5rem;
+    }
+    @media only screen and (min-width: 1200px) {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+    @media only screen and (min-width: 1600px) {
+        font-size: 5rem;
+        line-height: 5rem;
+    }
+}

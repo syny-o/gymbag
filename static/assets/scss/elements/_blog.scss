@@ -1,0 +1,208 @@
+/*
+   12. Blog css
+*/
+
+.blog__section--bg {
+   background: #F9F9FB;
+}
+.blog__card{
+    background: var(--white-color);
+    &:hover{
+        & .blog__card--thumbnail{
+            &::before{
+                opacity: 0.7;
+            }
+            &__img{
+                transform: scale(1.05);
+            }
+        }
+    }
+    &--thumbnail{
+        position: relative;
+        overflow: hidden;
+        &::before{
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: var(--secondary-color);
+            z-index: 9;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        &__img{
+            width: 100%;
+        }
+    }
+    &--content{
+        text-align: center;
+        padding: 0.2rem 1.2rem 2.5rem;
+        @media only screen and (min-width: 768px) {
+            padding: 0.2rem 2rem 3rem;
+        }
+        @media only screen and (min-width: 1200px) {
+            padding: 0.5rem 2.8rem 3.5rem;
+        }
+        &.padding__style2{
+            padding: 0.2rem 1.2rem 0;
+            @media only screen and (min-width: 768px) {
+                padding: 0.2rem 2rem 0;
+            }
+            @media only screen and (min-width: 1200px) {
+                padding: 0.5rem 2.8rem 0;
+            }
+        }
+    }
+    &--meta{
+        box-shadow: 0 0 57px rgba(0, 0, 0, 0.05);
+        padding: 1.2rem 0.7rem;
+        position: relative;
+        background: var(--white-color);
+        top: -15px;
+        border-radius: 4px;
+        z-index: 9;
+        &__text{
+            color: var(--text-gray-color);
+            margin-right: 0.6rem;
+            &.text__secondary{
+                color: var(--secondary-color);
+            }
+            font-size: 1.2rem;
+            @media only screen and (min-width: 576px) {
+                font-size: 1.4rem;
+            }
+            @media only screen and (min-width: 992px) {
+                font-size: 1.5rem;
+            }
+            @media only screen and (min-width: 1200px) {
+                font-size: 1.6rem;
+            }
+        }
+        &:last-child{
+            margin-right: 0;
+        }
+        @media only screen and (min-width: 576px) {
+            padding: 1.5rem;
+            top: -20px;
+        }
+        @media only screen and (min-width: 1200px) {
+            padding: 2rem 2.5rem;
+            top: -25px;
+        }
+    }
+    &--title{
+        margin-bottom: 1.7rem;
+        @media only screen and (min-width: 576px) {
+            margin-bottom: 2rem;
+        }
+        @media only screen and (min-width: 1200px) {
+            margin-bottom: 2.2rem;
+        }
+    }
+    &--btn{
+        background: var(--white-color);
+        border: 1px solid #DDDDDD;
+        color: var(--text-gray-color);
+        line-height: 3.8rem;
+        height: 4rem;
+        padding: 0 2rem;
+        &:hover{
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+        @media only screen and (min-width: 768px) {
+            line-height: 4.3rem;
+            height: 4.5rem;
+            padding: 0 3rem;
+        }
+        @media only screen and (min-width: 992px) {
+            line-height: 4.8rem;
+            height: 5rem;
+            padding: 0 3.5rem;
+        }
+    }
+}
+
+// home three css here
+.blog__card--content.style3{
+    padding: 0.2rem 1.2rem 0;
+    @media only screen and (min-width: 1200px) {
+        padding: 0.5rem 2rem 0;
+    }
+    @media only screen and (min-width: 1600px) {
+        padding: 0.5rem 2.8rem 0;
+    }
+}
+
+.blog__card--meta.style3{
+    padding: 1.2rem 0.7rem;
+    @media only screen and (min-width: 1200px) {
+        padding: 2rem 1.5rem;
+    }
+    @media only screen and (min-width: 1600px) {
+        padding: 2rem 2.5rem;
+    }
+}
+
+
+// blog page css here
+.blog__card--page--content{
+    padding: 0.2rem 1.2rem 0;
+    @media only screen and (min-width: 768px) {
+        padding: 0.2rem 2rem 0;
+    }
+    @media only screen and (min-width: 1200px) {
+        padding: 0.5rem 2.8rem 0;
+    }
+}
+
+
+// blog sidebar page css here
+.blog__card--content.blog__content--style{
+    padding: 0.2rem 1.2rem 0;
+    @media only screen and (min-width: 768px) {
+        padding: 0.2rem 2rem 0;
+    }
+    @media only screen and (min-width: 1200px) {
+        padding: 0.5rem 1.3rem 0;
+    }
+    @media only screen and (min-width: 1366px) {
+        padding: 0.5rem 2rem 0;
+    }
+    @media only screen and (min-width: 1600px) {
+        padding: 0.5rem 2.8rem 0;
+    }
+    & .blog__card--title{
+        @media only screen and (min-width: 1200px) {
+            font-size: 1.8rem;
+        }
+        @media only screen and (min-width: 1366px) {
+            font-size: 2rem;
+        }
+    }
+    & .blog__card--meta {
+        @media only screen and (min-width: 1200px) {
+            padding: 1.8rem 1rem;
+            top: -18px;
+        }
+        @media only screen and (min-width: 1366px) {
+            padding: 2rem 1.5rem;
+            top: -24px;
+        }
+        @media only screen and (min-width: 1600px) {
+            padding: 2rem 2.5rem;
+        }
+        &__text{
+            @media only screen and (min-width: 1200px) {
+                font-size: 1.4rem;
+            }
+            @media only screen and (min-width: 1366px) {
+                font-size: 1.6rem;
+            }
+        }
+    }
+}

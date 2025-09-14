@@ -1,0 +1,304 @@
+:root {
+  --design-area-left: 23%;
+  --design-area-top: 46%;
+  --design-area-w: 54%;
+  --design-area-h: 42%;
+}
+
+/* Swatches (NOVÉ) */
+.swatches {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.swatch {
+  width: 30px;
+  height: 30px;
+  /* border-radius: 50%; */
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  background: #111;
+  position: relative;
+}
+.swatch:is(:hover, :focus) {
+  filter: brightness(1.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.swatch.is-selected {
+  box-shadow: 0 0 0 2px rgba(110, 168, 254, 0.85);
+  border-color: #fff;
+}
+
+/* barvy vizuální (jen vzhled koleček) */
+.swatch[data-color="black"] {
+  background: #141414;
+}
+.swatch[data-color="red"] {
+  background: #e53935;
+}
+.swatch[data-color="green"] {
+  background: #22c55e;
+}
+.swatch[data-color="blue"] {
+  background: #3b82f6;
+}
+.swatch[data-color="ping"] {
+  background: #ff70a5;
+} /* růžová (název souboru 'ping' dle zadání) */
+.swatch[data-color="grey"] {
+  background: #9ca3af;
+}
+
+/* Stage */
+.stage-wrap {
+  position: relative;
+  /* border-radius: var(--radius); */
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.stage {
+  position: relative;
+  width: 100%;
+  /* height: calc(100vh - 44px); */
+  background: #fff;
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.product {
+  position: relative;
+  width: min(900px, 100%);
+  aspect-ratio: 16/10;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#designArea {
+  position: absolute;
+  left: var(--design-area-left);
+  top: var(--design-area-top);
+  width: var(--design-area-w);
+  height: var(--design-area-h);
+  /* vizuální náznak (můžeš klidně vypnout): */
+  outline: 2px dashed rgba(255, 255, 255, 0.2);
+  outline-offset: -2px;
+  border-radius: 6px;
+  /* aby šly klikat/dragovat prvky uvnitř: */
+  pointer-events: auto;
+  z-index: 2; /* nad podkladem, pod rámečky */
+}
+
+.product img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.dropzone {
+  position: absolute;
+  inset: 0;
+  outline: 2px dashed rgba(255, 255, 255, 0.06);
+  outline-offset: -12px;
+  border-radius: 20px;
+}
+.hint {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  background: rgba(8, 12, 24, 0.6);
+  padding: 8px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+/* Text nodes */
+.text-node {
+  position: absolute;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 2px 4px;
+  color: #fff;
+  user-select: text;
+  will-change: transform;
+  transform-origin: center center;
+  white-space: pre-wrap;
+  text-align: left;
+
+  /* ↓↓↓ DŮLEŽITÉ PRO MOBIL ↓↓↓ */
+  font-size: clamp(18px, 6.5vw, 48px); /* místo pevného 64px */
+  z-index: 200; /* nad obrázkem/dropzonou */
+  touch-action: none; /* ať drag/resize/rotate nevyvolá scroll */
+}
+
+.text-node:focus {
+  outline: none;
+}
+
+.text-node,
+#designImage {
+  cursor: grab;
+}
+.text-node:active,
+#designImage:active {
+  cursor: grabbing;
+}
+
+/* Selection frame (resize) */
+/* Selection frame (vylepšené úchyty s ikonami) */
+.frame {
+  position: absolute;
+  border: 1.8px dashed rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  pointer-events: auto; /* ať jde chytit celý rám pro přesun */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25) inset;
+  cursor: move; /* drag celého rámu = přesun */
+}
+
+/* Základ úchytu */
+.handle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: rgba(8, 12, 24, 0.65);
+  backdrop-filter: blur(4px);
+  display: grid; /* centrování symbolu */
+  place-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  user-select: none;
+}
+.handle::before {
+  font-size: 13px;
+  line-height: 1;
+  color: #fff;
+  /* symbol doplníme konkrétní variantou níže */
+}
+
+/* Resize úchyt (pravý dolní roh) */
+.handle.resize {
+  right: -12px;
+  bottom: -12px;
+  border-color: var(--accent-2, #a7f3d0);
+  cursor: nwse-resize;
+}
+.handle.resize::before {
+  content: "⤡"; /* diagonální šipky */
+}
+
+/* Rotate úchyt (nahoře uprostřed) */
+.handle.rotate {
+  left: 50%;
+  top: -28px;
+  transform: translateX(-50%);
+  border-color: var(--accent, #6ea8fe);
+  cursor: grab;
+}
+.handle.rotate:active {
+  cursor: grabbing;
+}
+.handle.rotate::before {
+  content: "↻"; /* otočná šipka */
+}
+
+/* Hover efekty pro lepší affordance */
+.handle:hover {
+  filter: brightness(1.1);
+}
+
+/* Tiny badges */
+.badge {
+  font-size: 10px;
+  color: #0b1227;
+  background: linear-gradient(180deg, #a7f3d0, #68d2a7);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-weight: 700;
+}
+
+.footer {
+  position: fixed;
+  left: 22px;
+  right: 22px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+}
+.footer .btn {
+  background: #121a33;
+}
+
+.handle,
+.frame {
+  touch-action: none;
+}
+
+/* --- Z-vrstvy: text vždy nad obrázkem i nad jeho rámem --- */
+.text-node {
+  position: absolute;
+  z-index: 1000;
+} /* text */
+#designImage {
+  position: absolute;
+  z-index: 1;
+} /* nahraný obrázek */
+.frame[data-owner="image"] {
+  z-index: 500 !important;
+} /* rám obrázku pod textem */
+
+/* Zruš globální přechody na klíčových prvcích, ať rám „nedojíždí“ */
+#designImage,
+.frame {
+  transition: none !important;
+  will-change: transform, left, top, width, height;
+}
+
+/* Pro jistotu; už máme i inline, ale sjednoťme */
+.frame,
+.handle {
+  touch-action: none;
+}
+
+/* kliky skrz prázdnou oblast potisku */
+#designArea {
+  pointer-events: none;
+  z-index: 2;
+}
+#designArea .text-node {
+  pointer-events: auto;
+}
+
+/* vrstvy – text nad vším, obrázek nad oblastí */
+.text-node {
+  position: absolute;
+  z-index: 1000;
+}
+#designImage {
+  position: absolute;
+  z-index: 3;
+} /* nad #designArea */
+.frame[data-owner="image"] {
+  z-index: 500 !important;
+}
+
+@media (max-width: 980px) {
+  body {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 0;
+  }
+
+  .product {
+    width: 100%;
+  }
+}

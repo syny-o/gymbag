@@ -1,0 +1,63 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}GymBag – Single Product eCommerce{% endblock %}</title>
+  <meta name="description" content="Modern Bootstrap HTML5 Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+  <!-- Google Fonts (přímo jak v originálu) -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ======= Plugins CSS ======= -->
+  <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper-bundle.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/plugins/glightbox.min.css' %}">
+  <!-- Vendor -->
+  <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/customizer.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  {% comment %} {% include "./partials/_preloader.html" %} {% endcomment %}
+
+  <!-- Header (obsahuje topbar, main header, offcanvas, minicart, predictive search, sticky toolbar) -->
+  {% include "./partials/_header.html" %}
+
+  <main class="main__content_wrapper">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "./partials/_footer.html" %}
+
+  <!-- ======= Scripts ======= -->
+  <script src="{% static 'assets/js/vendor/popper.js' %}"></script>
+  <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/plugins/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/glightbox.min.js' %}"></script>
+  
+  <script src="{% static 'assets/js/script.js' %}"></script>
+
+
+  <script src="{% static 'assets/js/customizer/drag.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/resize.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/snap.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/rotate.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/colors.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/app.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/typography.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/image-loader.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/image-transform.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/image-size.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/exporter.js' %}" defer></script>
+  <script src="{% static 'assets/js/customizer/image-delete.js' %}" defer></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

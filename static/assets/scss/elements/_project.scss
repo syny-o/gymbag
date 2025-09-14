@@ -1,0 +1,152 @@
+/*
+    7. Project CSS
+*/
+
+.swiper {
+  &:hover {
+    & .swiper__nav--btn {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.project__section--bg{
+  background: url(../img/other/bg-shape2.webp);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+.project__card {
+  background: var(--white-color);
+  transition: var(--transition);
+  &:hover{
+    transform: translateY(-15px);
+    & .project__card--thumbnail__img{
+      transform: scale(1.05);
+    }
+    & .project__card--thumbnail{
+      &::before{
+        opacity: 0.47;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+  &--thumbnail{
+    overflow: hidden;
+    position: relative;
+    &::before{
+      position: absolute;
+      content: "";
+      background: var(--secondary-color);
+      left: 1rem;
+      right: 1rem;
+      top: 1rem;
+      bottom: 1rem;
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 9;
+    }
+  }
+  &--content{
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.05);
+    padding: 2rem 1.2rem;
+    @media only screen and (min-width: 992px) {
+      padding: 2rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      padding: 2.5rem;
+    }
+    &__title{
+      margin-bottom: 0.3rem;
+    }
+    &__subtitle{
+      color: var(--secondary-color);
+      @media only screen and (max-width: 479px) {
+        font-size: 1.3rem;
+      }
+    }
+    @media only screen and (max-width: 575px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    @media only screen and (max-width: 350px) {
+      flex-direction: row;
+    }
+  }
+  &--btn{
+    width: 3.2rem;
+    height: 3.2rem;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    &:hover{
+      background: var(--secondary-color);
+      color: var(--white-color);
+    }
+    @media only screen and (min-width: 922px) {
+      width: 4rem;
+      height: 4rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+    @media only screen and (max-width: 575px) {
+      margin-top: 0.8rem;
+    }
+    @media only screen and (max-width: 350px) {
+      margin-top: 0;
+    }
+  }
+}
+
+.project__tab--btn{
+  @media only screen and (max-width: 575px) {
+    flex-wrap: wrap;
+  }
+  &.mb-40{
+    @media only screen and (max-width: 575px) {
+      margin-bottom: 2.5rem;
+    }
+  }
+  &__list{
+    font-weight: 500;
+    color: #232323;
+    cursor: pointer;
+    padding: 0 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    margin-right: 0.5rem;
+    transition: var(--transition);
+    &:last-child{
+      margin-right: 0;
+    }
+    &.active{
+      background: var(--secondary-color);
+      color: var(--white-color);
+    }
+    &:hover{
+      background: var(--secondary-color);
+      color: var(--white-color);
+    }
+    @media only screen and (min-width: 768px) {
+      height: 3.3rem;
+      line-height: 3.3rem;
+      padding: 0 2.2rem;
+      margin-right: 0.8rem;
+    }
+    @media only screen and (max-width: 575px) {
+      padding: 0 1.2rem;
+      margin: 0 0.4rem 0.5rem;
+    }
+  }
+
+}

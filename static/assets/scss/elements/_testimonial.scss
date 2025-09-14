@@ -1,0 +1,65 @@
+/*
+   14. Testimonial Css
+*/
+.testimonial__inner{
+  padding: 0.8rem;
+}
+.testimonial__card{
+  box-shadow: 0 0 13px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  position: relative;
+  @media only screen and (min-width: 992px) {
+    padding: 2.5rem 2rem;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding: 3.5rem 2.5rem;
+  }
+  @media only screen and (min-width: 1366px) {
+    padding: 4.5rem 3rem;
+  }
+  &--thumbnail{
+    margin-bottom: 1.5rem;
+    @media only screen and (min-width: 768px) {
+      margin-bottom: 1.8rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      margin-bottom: 2.2rem;
+    }
+    &__img{
+      margin: 0 auto;
+    }
+  }
+}
+.testimonial__content{
+  &--desc{
+    font-style: italic;
+    margin-bottom: 1rem;
+    @media only screen and (min-width: 768px) {
+      margin-bottom: 1.4rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      margin-bottom: 1.6rem;
+    }
+  }
+  &--title{
+    margin-bottom: 0.3rem;
+  }
+}
+.testimonial__icon{
+  width: 6rem;
+  height: 6rem;
+  background: var( --secondary-color);
+  color: var(--white-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-clip-path: polygon(0 0, 0% 100%, 100% 0);
+  clip-path: polygon(0 0, 0% 100%, 100% 0);
+  border-radius: 5px 0 0;
+  &--svg{
+    position: absolute;
+    left: 10px;
+    top: 9px;
+  }
+}

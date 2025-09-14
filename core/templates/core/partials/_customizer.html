@@ -1,0 +1,279 @@
+<section class="section--padding border-bottom pt-5 mt-5">
+  <div class="container">
+    <div class="section__heading text-center mb-50">
+      <h2 class="section__heading--maintitle text__secondary mb-10">
+        Přizpůsobit
+      </h2>
+      <p class="section__heading--desc">
+        Vyberte barvu tašky, přidejte text nebo nahrajte vlastní obrázek.
+      </p>
+    </div>
+    <div class="row align-items-center">
+      <!-- PRAVY SLOUPEC -->
+      <div class="col-md-9 col-12">
+        <div class="stage-wrap">
+          <div class="stage">
+            <div class="product" id="product" aria-label="Plocha produktu">
+              <!-- výchozí obrázek z lokálních assets -->
+              <img
+                id="productImg"
+                alt="Gym bag"
+                src="./assets/gymbag_black.png"
+              />
+              <!-- Oblast potisku (omezení pro text/obrázek) -->
+              <div id="designArea" aria-label="Oblast potisku"></div>
+              <div
+                class="dropzone"
+                id="dropzone"
+                title="Kliknutí zapojíme později"
+              ></div>
+              <!-- <div class="hint">Syny-O</div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- LEVY SLOUPEC -->
+      <div class="col-md-3 col-12">
+        <!-- NOVÉ: výběr barvy tašky -->
+        <div class="mb-5">
+          <label class="form-label">Barva tašky</label>
+          <div
+            id="colorSwatches"
+            class="swatches d-flex flex-wrap gap-2"
+            role="listbox"
+            aria-label="Výběr barvy tašky"
+          >
+            <!-- zachovávám .swatch kvůli JS, přidávám Bootstrap vzhled -->
+            <button
+              class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
+              data-color="black"
+              aria-label="Černá"
+              title="Černá"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="red"
+              aria-label="Červená"
+              title="Červená"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="green"
+              aria-label="Zelená"
+              title="Zelená"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="blue"
+              aria-label="Modrá"
+              title="Modrá"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="ping"
+              aria-label="Růžová"
+              title="Růžová"
+            ></button>
+            <button
+              class="swatch btn btn-outline-secondary p-0"
+              data-color="grey"
+              aria-label="Šedá"
+              title="Šedá"
+            ></button>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <label
+            for="presetText"
+            class="form-label bg-dark text-light text-center d-block p-2 rounded-3 mb-3 m-auto"
+            >Text</label
+          >
+          <div class="row g-2 mb-3">
+            <div class="col-12">
+              <input
+                id="presetText"
+                type="text"
+                class="form-control"
+                placeholder='Např. "GYM MAD"'
+              />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-3">
+              <label for="fontFamily" class="form-label">Písmo</label>
+            </div>
+            <div class="col-9">
+              <select id="fontFamily" class="form-select">
+                <option value="Montserrat, system-ui, Arial">Montserrat</option>
+                <option value="Anton, Impact, Arial Black">Anton</option>
+                <option value="Pacifico, cursive">
+                  Pacifico (ručně psané)
+                </option>
+                <option value="Arial, Helvetica, sans-serif">Arial</option>
+                <option value="'Times New Roman', Times, serif">
+                  Times New Roman
+                </option>
+                <option value="'Courier New', Courier, monospace">
+                  Courier New
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-3">
+              <label for="fontSize" class="form-label">Velikost</label>
+            </div>
+            <div class="col-9">
+              <input
+                id="fontSize"
+                type="range"
+                class="form-range"
+                min="10"
+                max="180"
+                value="20"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-3">
+              <label for="fontColor" class="form-label">Barva</label>
+            </div>
+            <div class="col-9">
+              <input
+                id="fontColor"
+                type="color"
+                class="border-0 btn btn-outline-secondary p-0"
+                value="#16e9a3"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="row g-3 mb-5">
+            <div class="col-3">
+              <label class="form-label d-block">Styl</label>
+            </div>
+            <div class="col-9">
+              <div class="toolbar d-flex gap-2">
+                <button
+                  class="btn btn-outline-dark w-25 p-2"
+                  id="styleBold"
+                  data-bs-toggle="button"
+                  aria-pressed="true"
+                  title="Tučné"
+                >
+                  B
+                </button>
+                <button
+                  class="btn btn-outline-dark w-25"
+                  id="styleItalic"
+                  aria-pressed="false"
+                >
+                  <em>I</em>
+                </button>
+                <button
+                  class="btn btn-outline-dark w-25"
+                  id="styleUppercase"
+                  aria-pressed="false"
+                >
+                  Aa
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label
+              for="productFile"
+              class="form-label bg-dark text-light text-center d-block p-2 rounded-3 mb-3 m-auto"
+              >Obrázek</label
+            >
+            <div class="row mb-3">
+              <div class="col-9">
+                <input
+                  id="productFile"
+                  class="form-control"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
+              <div class="col-3">
+                <button
+                  class="btn btn-close"
+                  id="deleteImageBtn"
+                  disabled
+                >
+                  
+                </button>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-5">
+              <div class="col-3">
+                <label for="imageSize" class="form-label">Velikost</label>
+              </div>
+              <div class="col-9">
+                <input
+                  id="imageSize"
+                  type="range"
+                  class="form-range"
+                  min="10"
+                  max="200"
+                  value="20"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product__details--info__price mb-4">
+          <span class="current__price">599 Kč</span>
+          <!-- <span class="old__price">$320.00</span> -->
+        </div>
+
+        <div
+          class="product__variant--list quantity d-flex align-items-center mb-20"
+        >
+          <div class="quantity__box">
+            <button
+              type="button"
+              class="quantity__value quickview__value--quantity decrease"
+              aria-label="quantity value"
+              value="Decrease Value"
+            >
+              -
+            </button>
+            <label>
+              <input
+                type="number"
+                class="quantity__number quickview__value--number"
+                value="1"
+                data-counter
+              />
+            </label>
+            <button
+              type="button"
+              class="quantity__value quickview__value--quantity increase"
+              aria-label="quantity value"
+              value="Increase Value"
+            >
+              +
+            </button>
+          </div>
+          <button class="quickview__cart--btn primary__btn" type="submit">
+            Do košíku
+          </button>
+        </div>
+        <div class="product__variant--list mb-15">
+          <button class="variant__buy--now__btn primary__btn" type="submit">
+            Koupit nyní
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

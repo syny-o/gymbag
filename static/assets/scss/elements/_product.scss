@@ -1,0 +1,483 @@
+/*
+    6. Product CSS
+*/
+
+.featured__product--list {
+  @media only screen and (max-width: 991px) {
+    display: flex;
+  }
+  @media only screen and (max-width: 419px) {
+    flex-direction: column;
+  }
+  & .featured__product--card {
+    @media only screen and (max-width: 991px) {
+      margin-bottom: 3rem;
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    @media only screen and (max-width: 419px) {
+      margin-right: 0;
+    }
+  }
+}
+.featured__product--card {
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 1.5rem 1rem;
+  transition: var(--transition);
+  @media only screen and (min-width: 480px) {
+    padding: 2rem 1.5rem;
+  }
+  @media only screen and (min-width: 992px) {
+    padding: 2.5rem;
+  }
+  @media only screen and (min-width: 1200px) {
+    padding: 3rem;
+  }
+  @media only screen and (min-width: 1366px) {
+    padding: 4rem 3rem;
+  }
+  &:hover {
+    border: 1px dashed var(--secondary-color);
+    transform: translateY(-15px);
+    & .featured__product--card__icon {
+      background: var(--primary-color);
+    }
+  }
+  &__icon {
+    background: var(--secondary-color);
+    color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    width: 5.5rem;
+    height: 5.5rem;
+    @media only screen and (min-width: 992px) {
+      margin: 0 auto 2rem;
+      width: 6rem;
+      height: 6rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      margin: 0 auto 2.3rem;
+    }
+  }
+  &__title {
+    margin-bottom: 1rem;
+    @media only screen and (min-width: 992px) {
+      margin-bottom: 1.2rem;
+    }
+  }
+  &__desc {
+    @media only screen and (min-width: 1366px) {
+      font-size: 1.7rem;
+    }
+  }
+}
+.featured__product--thumbnail {
+  &__img {
+    margin: 0 auto;
+    @media only screen and (min-width: 1200px) and (max-width: 1365px) {
+      max-width: 233px;
+    }
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+      max-width: 240px;
+    }
+  }
+}
+.current__price {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+  @media only screen and (min-width: 768px) {
+    font-size: 1.6rem;
+  }
+  @media only screen and (min-width: 992px) {
+    font-size: 1.8rem;
+  }
+  &.style2 {
+    font-size: 1.6rem;
+  }
+}
+.old__price {
+  font-size: 1.4rem;
+  color: var(--light-color);
+  text-decoration: line-through;
+  margin-left: 0.4rem;
+  font-weight: 500;
+  @media only screen and (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+  @media only screen and (min-width: 992px) {
+    font-size: 1.6rem;
+  }
+  &.style2 {
+    font-size: 1.4rem;
+  }
+}
+.price__divided {
+  width: 1.2rem;
+  height: 0.1rem;
+  background: var(--light-color);
+  vertical-align: middle;
+  margin: 0 0.3rem;
+}
+.product__rating {
+  margin-bottom: 1.6rem;
+}
+.rating {
+  &__list {
+    margin-right: 0.4rem;
+    &:last-child {
+      margin-right: 0;
+    }
+    &--icon {
+      color: var(--yellow-color);
+    }
+  }
+}
+
+.product__card {
+  &:hover {
+    & .product__card--thumbnail__img {
+      transform: scale(1.04);
+    }
+    & .product__secondary--img {
+      opacity: 1;
+      visibility: visible;
+    }
+    & .product__primary--img {
+      opacity: 0;
+      visibility: hidden;
+    }
+    & .swiper__nav--btn {
+      opacity: 1;
+      visibility: visible;
+    }
+    & .product__card--action {
+      opacity: 1;
+      visibility: visible;
+      bottom: 18px;
+      @media only screen and (min-width: 576px) {
+        bottom: 22px;
+      }
+    }
+  }
+  &--thumbnail {
+    position: relative;
+    overflow: hidden;
+    &__img {
+      width: 100%;
+    }
+  }
+  &--content {
+    padding: 1.5rem 1rem 2.2rem;
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.05);
+    @media only screen and (min-width: 480px) {
+      padding: 1.7rem 1.5rem 2.5rem;
+    }
+    @media only screen and (min-width: 992px) {
+      padding: 2rem 2rem 2.7rem;
+    }
+    @media only screen and (min-width: 1366px) {
+      padding: 2.6rem 2rem 3rem;
+    }
+  }
+  &--meta__tag {
+    color: var(--secondary-color);
+    margin-bottom: 0.3rem;
+    @media only screen and (max-width: 479px) {
+      font-size: 1.3rem;
+      line-height: 2rem;
+    }
+  }
+  &--title {
+    margin-bottom: 0.8rem;
+    @media only screen and (max-width: 479px) {
+      margin-bottom: 0.6rem;
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+    }
+  }
+  &--btn {
+    background: var(--primary-color);
+    &:hover {
+      background: var(--secondary-color);
+    }
+    @media only screen and (max-width: 991px) {
+      font-size: 1.4rem;
+      height: 3.6rem;
+      line-height: 3.6rem;
+    }
+    @media only screen and (max-width: 479px) {
+      font-size: 1.3rem;
+      height: 3.2rem;
+      line-height: 3.2rem;
+      padding: 0 1.2rem;
+    }
+  }
+  &--price {
+    margin-bottom: 0.8rem;
+    @media only screen and (min-width: 480px) {
+      margin-bottom: 1.2rem;
+    }
+    @media only screen and (min-width: 992px) {
+      margin-bottom: 1.5rem;
+    }
+    @media only screen and (min-width: 1366px) {
+      margin-bottom: 2rem;
+    }
+  }
+  &--action {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translatex(-50%);
+    opacity: 0;
+    visibility: visible;
+    z-index: 9;
+    transition: var(--transition);
+    background: var(--white-color);
+    padding: 4px 10px;
+    border-radius: 22px;
+    @media only screen and (min-width: 400px) {
+      bottom: 8px;
+      padding: 5px 10px;
+    }
+    @media only screen and (min-width: 576px) {
+      bottom: 12px;
+    }
+    &__list {
+      margin-right: 0.7rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    &__btn {
+      width: 2.8rem;
+      height: 2.8rem;
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      &:hover {
+        background: var(--secondary-color);
+        color: var(--white-color);
+      }
+      @media only screen and (min-width: 480px) {
+        width: 3rem;
+        height: 3rem;
+      }
+      & svg {
+        width: 2.8rem;
+      }
+    }
+  }
+}
+
+.product__secondary--img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+// deals css here
+.deals__section--bg {
+  background: url(../img/banner/banner-bg3.webp);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  @media only screen and (max-width: 767px) {
+    background-position: 20%;
+  }
+}
+.deals__countdown {
+  @media only screen and (max-width: 767px) {
+    justify-content: center;
+  }
+  & .countdown__item {
+    display: flex;
+    flex-direction: column-reverse;
+    border: 1px solid var(--white-color);
+    text-align: center;
+    padding: 0.6rem 0;
+    margin-right: 1rem;
+    width: 60px;
+    &:last-child {
+      margin-right: 0;
+    }
+    @media only screen and (min-width: 768px) {
+      padding: 0.8rem 0;
+      margin-right: 1.2rem;
+      width: 72px;
+    }
+    @media only screen and (min-width: 992px) {
+      padding: 1rem 0;
+      margin-right: 1.5rem;
+      width: 80px;
+    }
+    @media only screen and (min-width: 1200px) {
+      padding: 1.5rem 0;
+      margin-right: 1.8rem;
+      width: 90px;
+    }
+    @media only screen and (min-width: 1366px) {
+      padding: 1.8rem 0;
+      margin-right: 2rem;
+      width: 100px;
+    }
+  }
+  & .countdown__text {
+    font-weight: 500;
+    color: var(--white-color);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    @media only screen and (min-width: 768px) {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      line-height: 2.2rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      margin-bottom: 0.7rem;
+      font-size: 1.5rem;
+      line-height: 2.2rem;
+    }
+    @media only screen and (min-width: 1366px) {
+      font-size: 1.6rem;
+      line-height: 2.6rem;
+    }
+    @media only screen and (min-width: 1600px) {
+      font-size: 1.7rem;
+    }
+  }
+  & .countdown__number {
+    font-size: 1.7rem;
+    line-height: 2rem;
+    color: var(--white-color);
+    font-weight: 500;
+    @media only screen and (min-width: 768px) {
+      font-size: 2rem;
+      line-height: 2.2rem;
+    }
+    @media only screen and (min-width: 992px) {
+      font-size: 2.2rem;
+      line-height: 2.4rem;
+    }
+    @media only screen and (min-width: 1200px) {
+      font-size: 2.8rem;
+      line-height: 2.6rem;
+    }
+    @media only screen and (min-width: 1366px) {
+      font-size: 3.2rem;
+      line-height: 2.8rem;
+    }
+  }
+}
+.deals__content {
+  @media only screen and (max-width: 767px) {
+    text-align: center;
+  }
+  &--title {
+    @media only screen and (min-width: 1600px) {
+      font-size: 4.5rem;
+      line-height: 5.5rem;
+    }
+  }
+  &--desc {
+    @media only screen and (min-width: 1600px) {
+      line-height: 2.8rem;
+    }
+  }
+  &--price {
+    & .old__price {
+      font-size: 1.6rem;
+      color: var(--white-color);
+      margin-left: 0;
+      @media only screen and (min-width: 768px) {
+        font-size: 1.8rem;
+      }
+      @media only screen and (min-width: 1200px) {
+        font-size: 2rem;
+      }
+    }
+    & .current__price {
+      font-size: 1.8rem;
+      color: var(--white-color);
+      @media only screen and (min-width: 768px) {
+        font-size: 2rem;
+      }
+      @media only screen and (min-width: 1200px) {
+        font-size: 2.2rem;
+      }
+    }
+    & .price__divided {
+      height: 0.3rem;
+      margin: 0 0.5rem;
+      background: var(--white-color);
+    }
+  }
+  &--btn {
+    &:hover {
+      background: var(--white-color);
+      color: var(--secondary-color);
+    }
+  }
+}
+
+// home three css here
+.deals__section--bg2 {
+  background: url(../img/banner/banner-bg8.webp);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+// home four css here
+.deals__section--bg3 {
+  background: url(../img/banner/banner-bg10.webp);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+.deals__thumbnail--style3 {
+  @media only screen and (max-width: 767px) {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 0 3rem;
+  }
+}
+
+span.info__list--item-head {
+  width: 12rem;
+}
+ul.additional__info_list {
+  margin: 0;
+  padding: 0;
+}
+
+li.additional__info_list--item:nth-child(even) {
+  background: #fafafa;
+}
+
+li.additional__info_list--item {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+span.info__list--item-content {
+  line-height: 24px;
+}

@@ -1,0 +1,171 @@
+/*
+   15. Newslette Css
+*/
+
+.newsletter__bg{
+    background: url(../img/banner/banner-bg4.webp);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    padding: 6rem 0;
+    position: relative;
+    @media only screen and (min-width: 768px) {
+        padding: 7rem 0;
+    }
+    &::before{
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: #24252A;
+        left: 0;
+        top: 0;
+        opacity: 0.95;
+    }
+}
+.newsletter__content{
+    &--title{
+        @media only screen and (max-width: 767px) {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+    }
+}
+.newsletter__subscribe{
+    &--input{
+        width: 100%;
+        height: 4.3rem;
+        border: 0;
+        background: var(--white-color);
+        padding: 0 12.5rem 0 2rem;
+        border-radius: 2px;   
+        font-size: 1.4rem;
+        @media only screen and (min-width: 1600px) {
+            padding: 0 12rem 0 2rem;
+        }
+        @media only screen and (max-width: 575px) {
+            padding: 0 12rem 0 1.2rem;
+            font-size: 1.4rem;
+        }
+        &.style2{
+            height: 4.5rem;
+            padding: 0 13.5rem 0 2rem;
+            @media only screen and (min-width: 768px) {
+                height: 4.5rem;
+                padding: 0 13.5rem 0 2rem;
+            }
+            @media only screen and (min-width: 992px) {
+                height: 5.5rem;
+                padding: 0 16.5rem 0 2rem;
+            }
+        }
+    }
+    &--button{
+        position: absolute;
+        right: 0.5rem;
+        top: 5px;
+        height: 3.3rem;
+        line-height: 3.3rem;
+        font-size: 1.3rem;
+        padding: 0 1rem;
+        @media only screen and (min-width: 1600px) {
+            padding: 0 1.2rem;
+        }
+        &__icon{
+            vertical-align: middle;
+            margin-left: 0.4rem;
+        }
+        @media only screen and (max-width: 575px) {
+            padding: 0 1rem;
+        }
+        &.style2{
+            height: 3.6rem;
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            padding: 0 1.2rem;
+            top: 4px;
+            @media only screen and (min-width: 992px) {
+                top: 5px;
+                height: 4.5rem;
+                font-size: 1.6rem;
+                padding: 0 1.8rem;
+            }
+        }
+    }
+}
+
+.newsletter__subscribe--form__style{
+    width: 100%;
+}
+.footer__newsletter--desc{
+    font-size: 1.4rem;
+    color: var(--ofwhite-color);
+    @media only screen and (min-width: 768px) {
+        font-size: 1.5rem;
+    }
+}
+.footer__newsletter--input{
+    @media only screen and (max-width: 1199px) {
+        padding: 0 1.4rem 0;
+    }
+}
+.footer__newsletter--button{
+    @media only screen and (max-width: 1199px) {
+        position: inherit;
+        top: inherit;
+        right: inherit;
+        margin-top: 1.5rem;
+    }
+}
+
+// home four css here
+.newsletter__bg2{
+    background: url(../img/banner/banner-bg11.webp);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    &::before{
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: #24252A;
+        left: 0;
+        top: 0;
+        opacity: 0.49;
+    }
+}
+
+.newsletter__content{
+    &--title__style2{
+        margin-bottom: 2rem;
+        @media only screen and (min-width: 1200px) {
+            font-size: 3.2rem;
+            line-height: 4.2rem;
+        }
+    }
+}
+
+.banner__video--play__icon.style4{
+    background: var(--white-color);
+    border: 5px solid #c5c5c6;
+    color: var(--secondary-color);
+    margin-top: 1.5rem;
+    @media only screen and (min-width: 576px) {
+        margin-top: 2rem;
+    }
+    @media only screen and (min-width: 992px) {
+        margin-top: 2.5rem;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 7rem;
+        height: 7rem;
+    }
+    &:hover{
+        background: var(--secondary-color);
+        color: var(--white-color);
+    }
+}
