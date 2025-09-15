@@ -99,14 +99,18 @@
   top: var(--design-area-top);
   width: var(--design-area-w);
   height: var(--design-area-h);
-  /* vizuální náznak (můžeš klidně vypnout): */
   outline: 2px dashed rgba(255, 255, 255, 0.2);
   outline-offset: -2px;
   border-radius: 6px;
-  /* aby šly klikat/dragovat prvky uvnitř: */
-  pointer-events: auto;
-  z-index: 2; /* nad podkladem, pod rámečky */
+  /* kliky bere až obsah uvnitř */
+  pointer-events: none;
+  /* KLÍČOVÉ: oblast potisku je nad base obrázkem produktu */
+  z-index: 10;
 }
+
+#designArea .text-node,
+#designArea .frame,
+#designArea .handle { pointer-events: auto; }
 
 .product img {
   position: absolute;
@@ -138,7 +142,7 @@
 
 /* Text nodes */
 .text-node {
-  position: absolute;
+
   min-width: 30px;
   min-height: 30px;
   padding: 2px 4px;
@@ -156,11 +160,20 @@
 
   /* ↓↓↓ DŮLEŽITÉ PRO MOBIL ↓↓↓ */
   font-size: clamp(18px, 6.5vw, 48px); /* místo pevného 64px */
-  z-index: 200; /* nad obrázkem/dropzonou */
+
   touch-action: none; /* ať drag/resize/rotate nevyvolá scroll */
 
 
 }
+
+
+/* vrstvy v oblasti potisku */
+.text-node   { position: absolute; z-index: 1000; }   /* text nad vším uvnitř designArea */
+#designImage { position: absolute; z-index: 1; }      /* base produkt pod oblastí potisku */
+.frame[data-owner="image"] { z-index: 500 !important; }
+.frame[data-owner="text"]  { z-index: 1200 !important; }
+
+
 
 .text-node:focus {
   outline: none;
@@ -293,27 +306,8 @@
   touch-action: none;
 }
 
-/* kliky skrz prázdnou oblast potisku */
-#designArea {
-  pointer-events: none;
-  z-index: 2;
-}
-#designArea .text-node {
-  pointer-events: auto;
-}
 
-/* vrstvy – text nad vším, obrázek nad oblastí */
-.text-node {
-  position: absolute;
-  z-index: 1000;
-}
-#designImage {
-  position: absolute;
-  z-index: 3;
-} /* nad #designArea */
-.frame[data-owner="image"] {
-  z-index: 500 !important;
-}
+
 
 
 
