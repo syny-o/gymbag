@@ -149,10 +149,17 @@
   white-space: pre-wrap;
   text-align: left;
 
+
+  /* Aby ramecek kolem text pole byl spravne */
+  line-height: 1.15;      /* 1.10–1.20 podle fontu; zarovná spodek */
+  display: inline-block;  /* ať výška vychází z vlastního boxu */
+
   /* ↓↓↓ DŮLEŽITÉ PRO MOBIL ↓↓↓ */
   font-size: clamp(18px, 6.5vw, 48px); /* místo pevného 64px */
   z-index: 200; /* nad obrázkem/dropzonou */
   touch-action: none; /* ať drag/resize/rotate nevyvolá scroll */
+
+
 }
 
 .text-node:focus {
