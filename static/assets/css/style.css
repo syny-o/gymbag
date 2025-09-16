@@ -50,7 +50,7 @@
 */
 :root {
   --primary-color: #222222;
-  --secondary-color: #D72323;
+  --secondary-color: #d72323;
   --yellow-color: #ffc107;
   --text-gray-color: #4a4c59;
   --white-color: #ffffff;
@@ -4734,9 +4734,9 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-.hero__slider--thumbnail__img.style4 {
+/* .hero__slider--thumbnail__img.style4 {
   max-width: 200px;
-}
+} */
 
 @media only screen and (min-width: 768px) {
   .hero__slider--thumbnail__img.style4 {
@@ -9372,13 +9372,13 @@ span.info__list--item-content {
 }
 
 .product__details--info__price .current__price {
-  font-size: 1.6rem;
+  font-size: 3rem;
   font-weight: 600;
 }
 
 @media only screen and (min-width: 992px) {
   .product__details--info__price .current__price {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
 

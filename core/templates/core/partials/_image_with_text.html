@@ -1,46 +1,79 @@
 {% load static %}
 <!-- Start image with text section -->
-<section class="image__with--text__section bg-fitness-room text-light mt-5 mb-5 pb-5">
+<section
+  class="image__with--text__section bg-fitness-room text-light mt-5 mb-md-5 p-5"
+>
   <div class="container">
     <div class="row row-cols-md-2 row-cols-1 align-items-center">
       <div class="col">
         <div class="image__with--text__thumbnail">
-          <img class="display-block" src="{% static 'assets/img/other/model-side.jpg' %}" alt="GymBag na zádech – pohled zezadu">
+          <img
+            class="display-block rounded-3"
+            src="{% static 'assets/img/other/model-side.jpg' %}"
+            alt="GymBag na zádech – pohled zezadu"
+          />
         </div>
       </div>
       <div class="col">
         <div class="image__with--text__content">
-          <h2 class="image__with--text__title mb-18">Tvůj trénink, tvoje taška. GymBag s vlastním nápisem</h2>
+          <h2 class="image__with--text__title mb-18">
+            Tvůj trénink, tvoje taška. GymBag s vlastním nápisem
+          </h2>
           <p class="image__with--text__desc mb-25 text-light">
-            Vyber barvu, přidej jméno nebo přezdívku a sleduj náhled v našem customizeru. Odolné materiály,
-            chytré kapsy a pohodlné nošení – přesně pro život mezi prací a gymem.
+            Vyber barvu, přidej jméno nebo přezdívku a sleduj náhled v našem
+            customizeru. Odolné materiály, chytré kapsy a pohodlné nošení –
+            přesně pro život mezi prací a gymem.
           </p>
           <div class="image__with--text__percent color-primary-2 mb-40">
             <ul>
               <li class="image__with--text__percent--list mb-25">
-                <span class="image__with--text__percent--top d-flex justify-content-between align-content-center">
-                  <span class="image__with--text__percent--content text-light">Zákaznická spokojenost</span>
-                  <span class="image__with--text__percent--content text-light">98%</span>
+                <span
+                  class="image__with--text__percent--top d-flex justify-content-between align-content-center"
+                >
+                  <span class="image__with--text__percent--content text-light"
+                    >Zákaznická spokojenost</span
+                  >
+                  <span class="image__with--text__percent--content text-light"
+                    >98%</span
+                  >
                 </span>
               </li>
               <li class="image__with--text__percent--list two">
-                <span class="image__with--text__percent--top d-flex justify-content-between align-content-center">
-                  <span class="image__with--text__percent--content text-light">Objednávek s personalizací</span>
-                  <span class="image__with--text__percent--content text-light">87%</span>
+                <span
+                  class="image__with--text__percent--top d-flex justify-content-between align-content-center"
+                >
+                  <span class="image__with--text__percent--content text-light"
+                    >Objednávek s personalizací</span
+                  >
+                  <span class="image__with--text__percent--content text-light"
+                    >87%</span
+                  >
                 </span>
               </li>
             </ul>
           </div>
           <div class="image__with--text__content--footer d-flex">
-            <img class="display-block w-25" src="{% static 'assets/img/other/text-shape.webp' %}" alt="dekorativní nápis">
+            <img
+              class="display-block w-25"
+              src="{% static 'assets/img/other/text-shape.webp' %}"
+              alt="dekorativní nápis"
+            />
             <p class="image__with--text__content--footer__desc text-light">
-              OD ROKU 2024 — <br> STOVKY VYROBENÝCH GYMBAGŮ A <br> NOVÉ DESIGNY KAŽDÝ DEN
+              OD ROKU 2024 — <br />
+              STOVKY VYROBENÝCH GYMBAGŮ A <br />
+              NOVÉ DESIGNY KAŽDÝ DEN
             </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  {% comment %} <img class="image__with--text__position--shape display-block" src="{% static 'assets/img/other/image-with-text-section-shape.webp' %}" alt="shape img"> {% endcomment %}
+  {% comment %}
+  <img
+    class="image__with--text__position--shape display-block"
+    src="{% static 'assets/img/other/image-with-text-section-shape.webp' %}"
+    alt="shape img"
+  />
+  {% endcomment %}
 </section>
 <!-- End image with text section -->

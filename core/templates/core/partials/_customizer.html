@@ -6,12 +6,13 @@
         Přizpůsobit
       </h2>
       <p class="section__heading--desc">
-        Vyberte barvu tašky, přidejte text nebo nahrajte vlastní obrázek.
+        Vyber barvu tašky a popruhu, přidej text nebo vlastní obrázek a vytvoř
+        si svůj vlastní design.
       </p>
     </div>
     <div class="row align-items-center">
       <!-- PRAVY SLOUPEC -->
-      <div class="col-md-9 col-12 p-5">
+      <div class="col-md-8 col-12">
         <div class="stage-wrap">
           <div class="stage">
             <div class="product" id="product" aria-label="Plocha produktu">
@@ -34,75 +35,83 @@
         </div>
       </div>
       <!-- LEVY SLOUPEC -->
-      <div class="col-md-3 col-12">
+      <div class="col-md-4 col-12">
         <!-- výběr barvy tašky -->
-        <div class=" row mb-3">
-          <label class="form-label">Barva tašky</label>
-          <div
-            id="colorSwatches"
-            class="swatches d-flex flex-wrap gap-2"
-            role="listbox"
-            aria-label="Výběr barvy tašky"
-          >
-            <button
-              class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
-              data-color="red"
-              aria-label="Červená"
-              title="Červená"                            
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-color="black"
-              aria-label="Černá"
-              title="Černá"
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-color="green"
-              aria-label="Zelená"
-              title="Zelená"
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-color="blue"
-              aria-label="Modrá"
-              title="Modrá"
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-color="ping"
-              aria-label="Růžová"
-              title="Růžová"
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-color="grey"
-              aria-label="Šedá"
-              title="Šedá"
-            ></button>
+        <div class="row mb-3">
+          <div class="col-3">
+            <label class="form-label">Barva 1</label>
           </div>
-        </div>         
-        <div class=" row mb-5">
-          <label class="form-label">Barva popruhu</label>
-          <div
-            id="strapSwatches"
-            class="swatches d-flex flex-wrap gap-2"
-            role="listbox"
-            aria-label="Výběr barvy tašky"
-          >
-            <button
-              class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
-              data-strap="black"
-              aria-label="Černá"
-              title="Černá"
-            ></button>
-            <button
-              class="swatch btn btn-outline-secondary p-0"
-              data-strap="white"
-              aria-label="Bílá"
-              title="Bílá"
-            ></button>
+          <div class="col-9">
+            <div
+              id="colorSwatches"
+              class="swatches d-flex flex-wrap gap-2"
+              role="listbox"
+              aria-label="Výběr barvy tašky"
+            >
+              <button
+                class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
+                data-color="red"
+                aria-label="Červená"
+                title="Červená"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-color="black"
+                aria-label="Černá"
+                title="Černá"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-color="green"
+                aria-label="Zelená"
+                title="Zelená"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-color="blue"
+                aria-label="Modrá"
+                title="Modrá"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-color="ping"
+                aria-label="Růžová"
+                title="Růžová"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-color="grey"
+                aria-label="Šedá"
+                title="Šedá"
+              ></button>
+            </div>
+          </div>
+        </div>
 
+        <div class="row mb-5">
+          <div class="col-3">
+            <label class="form-label">Barva 2</label>
+          </div>
+          <div class="col-9">
+            <div
+              id="strapSwatches"
+              class="swatches d-flex flex-wrap gap-2"
+              role="listbox"
+              aria-label="Výběr barvy tašky"
+            >
+              <button
+                class="swatch btn btn-outline-secondary p-0 is-selected form-control-color form-control"
+                data-strap="black"
+                aria-label="Černá"
+                title="Černá"
+              ></button>
+              <button
+                class="swatch btn btn-outline-secondary p-0"
+                data-strap="white"
+                aria-label="Bílá"
+                title="Bílá"
+              ></button>
+            </div>
           </div>
         </div>
 
@@ -118,7 +127,7 @@
                 id="presetText"
                 type="text"
                 class="form-control big-font"
-                placeholder='Sem napište text (max. 30 znaků)'
+                placeholder="Sem napiš text (max. 30 znaků)"
               />
             </div>
           </div>
@@ -169,7 +178,7 @@
               <input
                 id="fontColor"
                 type="color"
-                class="border-0 btn btn-outline-secondary p-0"
+                class="border-0 btn btn-outline-secondary p-0 w-100"
                 value="#16e9a3"
                 disabled
               />
@@ -180,7 +189,7 @@
               <label class="form-label d-block">Styl</label>
             </div>
             <div class="col-9">
-              <div class="toolbar d-flex gap-2">
+              <div class="toolbar d-flex gap-2 justify-content-between">
                 <button
                   class="btn btn-outline-dark w-25 p-2"
                   id="styleBold"
@@ -215,7 +224,7 @@
               >Obrázek</label
             >
             <div class="row mb-3">
-              <div class="col-9">
+              <div class="col-10 pe-0 me-0">
                 <input
                   id="productFile"
                   class="form-control"
@@ -223,13 +232,30 @@
                   accept="image/*"
                 />
               </div>
-              <div class="col-3">
-                <button
-                  class="btn btn-close"
-                  id="deleteImageBtn"
-                  disabled
-                >
-                  
+              <div class="col-2 ps-0">
+                <button class="form-control" id="deleteImageBtn" disabled>
+                  <!-- Feather-like trash icon -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path
+                      d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"
+                    ></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                  </svg>
                 </button>
               </div>
             </div>
@@ -253,13 +279,8 @@
           </div>
         </div>
 
-        <div class="product__details--info__price mb-4">
-          <span class="current__price">599 Kč</span>
-          <!-- <span class="old__price">$320.00</span> -->
-        </div>
-
         <div
-          class="product__variant--list quantity d-flex align-items-center mb-20"
+          class="product__variant--list quantity d-flex align-items-center mb-20 justify-content-between"
         >
           <div class="quantity__box">
             <button
@@ -287,20 +308,27 @@
               +
             </button>
           </div>
-          <button class="quickview__cart--btn primary__btn" type="submit">
-            Do košíku
-          </button>
+          <div class="product__details--info__price">
+            <span class="current__price">599 Kč</span>
+            <!-- <span class="old__price">$320.00</span> -->
+          </div>
+          <button class="primary__btn" type="submit">Do košíku</button>
         </div>
         <div class="product__variant--list mb-15">
           <button class="variant__buy--now__btn primary__btn" type="submit">
             Koupit nyní
           </button>
         </div>
-        <div class="guarantee__safe--checkout">
+        <div
+          class="guarantee__safe--checkout d-flex align-items-center flex-column"
+        >
           <h5 class="guarantee__safe--checkout__title">Bezpečná platba</h5>
-          <img class="guarantee__safe--checkout__img display-block" src="{% static 'assets/img/other/safe-checkout.webp' %}" alt="Payment Image">
+          <img
+            class="guarantee__safe--checkout__img display-block"
+            src="{% static 'assets/img/other/safe-checkout.webp' %}"
+            alt="Payment Image"
+          />
         </div>
-                                
       </div>
     </div>
   </div>
