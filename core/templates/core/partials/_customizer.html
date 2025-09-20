@@ -11,30 +11,24 @@
       </p>
     </div>
     <div class="row align-items-center">
-      <!-- PRAVY SLOUPEC -->
+      <!-- LEVY SLOUPEC -->
       <div class="col-md-8 col-12">
-        <div class="stage-wrap">
-          <div class="stage">
-            <div class="product" id="product" aria-label="Plocha produktu">
-              <!-- výchozí obrázek z lokálních assets -->
-              <img
-                id="productImg"
-                alt="Gym bag"
-                src="./assets/gymbag_black.png"
-              />
-              <!-- Oblast potisku (omezení pro text/obrázek) -->
-              <div id="designArea" aria-label="Oblast potisku"></div>
-              <div
-                class="dropzone"
-                id="dropzone"
-                title="Kliknutí zapojíme později"
-              ></div>
-              <!-- <div class="hint">Syny-O</div> -->
-            </div>
-          </div>
+        <!-- Ovládání -->
+        <div class="view-tabs">
+          <button type="button" data-view="front">Předek</button>
+          <button type="button" data-view="side">Bok</button>
+        </div>
+
+        <div
+          class="stage position-relative"
+          data-front-bg="{% static 'assets/img/customizer/bag_front.png' %}"
+          data-side-bg="{% static 'assets/img/customizer/bag_side.png' %}"
+        >
+          <canvas id="canvasFront" width="800" height="500"></canvas>
+          <canvas id="canvasSide" width="800" height="500"></canvas>
         </div>
       </div>
-      <!-- LEVY SLOUPEC -->
+      <!-- PRAVY SLOUPEC -->
       <div class="col-md-4 col-12">
         <!-- výběr barvy tašky -->
         <div class="row mb-3">
